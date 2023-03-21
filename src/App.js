@@ -3,7 +3,7 @@ import Typing from './Components/Typing';
 
 function App() {
   return (
-    <div className="">
+    <div style={{ background: '#f5f0f0' }}>
       <Typing></Typing>
     </div>
   );

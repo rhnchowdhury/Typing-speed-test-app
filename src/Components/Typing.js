@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import randomWords from 'random-words';
 import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from 'react-tooltip';
-import './Typing.css';
 
 const numOfWords = 200;
 const seconds = 60;
@@ -107,7 +106,7 @@ const Typing = () => {
                     <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input' />
                 </div>
                 <div className='card-actions justify-center'>
-                    <button onClick={timeStart} className='rounded-md p-4 shadow-2xl font-medium hov'>Click To Start Test</button>
+                    <button onClick={timeStart} className='rounded-md p-4 shadow-2xl font-medium hov hover:text-red-500'>Click To Start Test</button>
                 </div>
 
                 {status === 'started' && (
