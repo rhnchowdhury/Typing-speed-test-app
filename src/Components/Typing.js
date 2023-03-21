@@ -9,6 +9,8 @@ const Typing = () => {
     const [countDown, setCountDown] = useState(seconds);
     const [currentInput, setCurrentInput] = useState('');
     const [currWordIdx, setCurrWordIdx] = useState(0);
+    const [currCharIdx, setCurrCharIdx] = useState(-1);
+    const [currChar, setCurrChar] = useState("");
     const [correct, setCorrect] = useState(0);
     const [error, setError] = useState(0);
     const [status, setStatus] = useState('waiting');
@@ -53,11 +55,16 @@ const Typing = () => {
         }
     };
 
-    const handleInput = ({ keyCode }) => {
+    const handleInput = ({ keyCode, key }) => {
         if (keyCode === 32) {
             checkMatch();
             setCurrentInput('');
             setCurrWordIdx(currWordIdx + 1);
+            setCurrCharIdx(-1);
+        }
+        else {
+            setCurrCharIdx(currCharIdx + 1);
+            setCurrChar(key);
         }
     };
 
@@ -70,12 +77,26 @@ const Typing = () => {
         else {
             setError(error + 1)
         }
-    }
+    };
+
+    const getCharClass = (wordIdx, charIdx, char) => {
+        if (wordIdx === currWordIdx && charIdx === currCharIdx && currChar && status !== 'finished') {
+            if (char === currChar) {
+                return 'bg-red-600'
+            } else {
+                return 'bg-sky-700'
+            }
+        }
+        else {
+            return ''
+        }
+    };
 
     return (
         <section>
+            {/* {getCharClass(i, idx, char)} */}
             <div>
-                <h1>Check your typing skills in a minute</h1>
+                <h1 className='text-center'>Check your typing skills in a minute</h1>
                 <h1>{countDown}</h1>
                 <div>
                     <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input' />
@@ -83,21 +104,23 @@ const Typing = () => {
                 <div>
                     <button onClick={timeStart}>Start Test</button>
                 </div>
+
                 {status === 'started' && (
                     <div>
-                        {words.map((word, i) => (
-                            <span key={i}>
-                                <span>
-                                    {word.split("").map((char, idx) => (
-                                        <span key={idx}>{char}</span>
-                                    ))}
+                        {
+                            words.map((word, i) => (
+                                <span key={i}>
+                                    <span>
+                                        {word.split("").map((char, idx) => (
+                                            <span className={getCharClass(i, idx, char)} key={idx}>{char}</span>
+                                        ))}
+                                    </span>
+                                    <span> </span>
                                 </span>
-                                <span> </span>
-                            </span>
-                        ))}
+                            ))
+                        }
                     </div>
                 )}
-
             </div>
             {status === 'finished' && (
                 <div>
