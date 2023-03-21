@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import randomWords from 'random-words';
+import './Typing.css';
 
 const numOfWords = 200;
 const seconds = 10;
@@ -82,9 +83,9 @@ const Typing = () => {
     const getCharClass = (wordIdx, charIdx, char) => {
         if (wordIdx === currWordIdx && charIdx === currCharIdx && currChar && status !== 'finished') {
             if (char === currChar) {
-                return 'bg-red-600'
+                return 'bg-emerald-500'
             } else {
-                return 'bg-sky-700'
+                return 'bg-red-500'
             }
         }
         else {
@@ -93,16 +94,15 @@ const Typing = () => {
     };
 
     return (
-        <section>
-            {/* {getCharClass(i, idx, char)} */}
+        <section className='section'>
             <div>
-                <h1 className='text-center'>Check your typing skills in a minute</h1>
-                <h1>{countDown}</h1>
-                <div>
-                    <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input' />
+                <h1 className='text-center text-3xl font-semibold'>Check your typing skills in a minute</h1>
+                <button className='p-5 rounded-md justify-center items-center' style={{ boxShadow: '2px 2px 3px' }}>Time left: {countDown}s</button>
+                <div className='mt-10'>
+                    <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input input-bordered' />
                 </div>
                 <div>
-                    <button onClick={timeStart}>Start Test</button>
+                    <button onClick={timeStart} className='border-2 p-4 shadow-2xl'>Start Test</button>
                 </div>
 
                 {status === 'started' && (
@@ -124,7 +124,7 @@ const Typing = () => {
             </div>
             {status === 'finished' && (
                 <div>
-                    <h1>Words Per Minute:{correct}</h1>
+                    <h1 className='border-2 p-1 shadow-2xl'>Words Per Minute:{correct}</h1>
                     <h1>Accuracy: {Math.round((correct / (correct + error)) * 100)}%</h1>
                 </div>
             )}
