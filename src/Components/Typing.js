@@ -3,7 +3,7 @@ import randomWords from 'random-words';
 import './Typing.css';
 
 const numOfWords = 200;
-const seconds = 10;
+const seconds = 60;
 
 const Typing = () => {
     const [words, setWords] = useState([]);
@@ -94,19 +94,21 @@ const Typing = () => {
     };
 
     return (
-        <section className='section'>
+        <section className='section py-10'>
             <div>
-                <h1 className='text-center text-3xl font-semibold'>Check your typing skills in a minute</h1>
-                <button className='p-5 rounded-md justify-center items-center' style={{ boxShadow: '2px 2px 3px' }}>Time left: {countDown}s</button>
-                <div className='mt-10'>
-                    <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input input-bordered' />
+                <h1 className='text-center text-3xl font-semibold italic'>Check your typing skills in a minute</h1>
+                <div className='card-actions justify-center mt-12'>
+                    <button className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }} data-tip="Time Left on the Clock">Time left: {countDown}s</button>
                 </div>
-                <div>
-                    <button onClick={timeStart} className='border-2 p-4 shadow-2xl'>Start Test</button>
+                <div className='my-10 card-actions justify-center'>
+                    <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input' />
+                </div>
+                <div className='card-actions justify-center'>
+                    <button onClick={timeStart} className='rounded-md p-4 shadow-2xl font-medium hov'>Click To Start Test</button>
                 </div>
 
                 {status === 'started' && (
-                    <div>
+                    <div className='m-12 lg:m-20'>
                         {
                             words.map((word, i) => (
                                 <span key={i}>
@@ -123,9 +125,9 @@ const Typing = () => {
                 )}
             </div>
             {status === 'finished' && (
-                <div>
-                    <h1 className='border-2 p-1 shadow-2xl'>Words Per Minute:{correct}</h1>
-                    <h1>Accuracy: {Math.round((correct / (correct + error)) * 100)}%</h1>
+                <div className='my-10 space-x-4 card-actions justify-center'>
+                    <button data-tip="Words Per Minute" className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }}>Speed: {correct} WPM</button>
+                    <button className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }}>Accuracy: {Math.round((correct / (correct + error)) * 100)}%</button>
                 </div>
             )}
         </section>

@@ -9,3 +9,7 @@
 .re-color {
     background-color: #DC4C64;
 }
+
+.hov:hover {
+    color: #DC4C64;
+}
