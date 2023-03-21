@@ -7,6 +7,8 @@ const seconds = 10;
 const Typing = () => {
     const [words, setWords] = useState([]);
     const [countDown, setCountDown] = useState(seconds);
+    const [currentInput, setCurrentInput] = useState('');
+    const [currWordIdx, setCurrWordIdx] = useState(0);
 
     useEffect(() => {
         setWords(generateWords())
@@ -27,6 +29,20 @@ const Typing = () => {
                 }
             })
         }, 1000)
+    };
+
+    const handleInput = ({ keyCode }) => {
+        if (keyCode === 32) {
+            checkMatch();
+            setCurrentInput('');
+            setCurrWordIdx(currWordIdx + 1);
+        }
+    };
+
+    const checkMatch = () => {
+        const wordToCompare = words[currWordIdx];
+        const itMatch = wordToCompare === currentInput.trim();
+        console.log({ itMatch })
     }
 
     return (
@@ -35,19 +51,21 @@ const Typing = () => {
                 <h1>Check your typing skills in a minute</h1>
                 <h1>{countDown}</h1>
                 <div>
-                    <input type="text" className='input' />
+                    <input type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input' />
                 </div>
                 <div>
                     <button onClick={timeStart}>Start Test</button>
                 </div>
                 <div>
                     {words.map((word, i) => (
-                        <>
+                        <span key={i}>
                             <span>
-                                {word}
+                                {word.split("").map((char, idx) => (
+                                    <span key={idx}>{char}</span>
+                                ))}
                             </span>
                             <span> </span>
-                        </>
+                        </span>
                     ))}
                 </div>
             </div>
