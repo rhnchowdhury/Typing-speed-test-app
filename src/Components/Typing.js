@@ -95,7 +95,7 @@ const Typing = () => {
     };
 
     return (
-        <section className='section py-10'>
+        <section>
             <div>
                 <h1 className='text-center text-3xl font-semibold italic'>Check your typing skills in a minute</h1>
                 <div className='card-actions justify-center mt-12'>
