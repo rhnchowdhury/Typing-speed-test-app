@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import randomWords from 'random-words';
+import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip } from 'react-tooltip';
 import './Typing.css';
 
 const numOfWords = 200;
@@ -98,7 +100,8 @@ const Typing = () => {
             <div>
                 <h1 className='text-center text-3xl font-semibold italic'>Check your typing skills in a minute</h1>
                 <div className='card-actions justify-center mt-12'>
-                    <button className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }} data-tip="Time Left on the Clock">Time left: {countDown}s</button>
+                    <button className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }} data-tooltip-id="my-tooltip" data-tooltip-content="Time left on the Clock">Time left: {countDown}s</button>
+                    <Tooltip id="my-tooltip" />
                 </div>
                 <div className='my-10 card-actions justify-center'>
                     <input ref={textInput} disabled={status !== 'started'} type="text" onKeyDown={handleInput} value={currentInput} onChange={(e) => setCurrentInput(e.target.value)} className='input' />
@@ -126,7 +129,7 @@ const Typing = () => {
             </div>
             {status === 'finished' && (
                 <div className='my-10 space-x-4 card-actions justify-center'>
-                    <button data-tip="Words Per Minute" className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }}>Speed: {correct} WPM</button>
+                    <button data-tooltip-id="my-tooltip" data-tooltip-content="Words Per Minute" className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }}>Speed: {correct} WPM</button>
                     <button className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }}>Accuracy: {Math.round((correct / (correct + error)) * 100)}%</button>
                 </div>
             )}
