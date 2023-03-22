@@ -126,6 +126,7 @@ const Typing = () => {
                     </div>
                 )}
             </div>
+
             {status === 'finished' && (
                 <div className='my-10 space-x-4 card-actions justify-center'>
                     <button data-tooltip-id="my-tooltip" data-tooltip-content="Words Per Minute" className=' p-5 rounded-md' style={{ boxShadow: '2px 2px 3px' }}>Speed: {correct} WPM</button>
