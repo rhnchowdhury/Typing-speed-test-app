@@ -8,7 +8,7 @@ function App() {
   const { mode } = useSelector((state) => state.darkMode);
   const dispatch = useDispatch();
   return (
-    <div className='py-12 lg:py-24' style={{ background: mode ? 'black' : '#f5f0f0' }}>
+    <div className='py-12 lg:py-32' style={{ background: mode ? 'black' : '#f5f0f0' }}>
       <Typing>
       </Typing>
       <div className='card-actions justify-center mr-60 mt-5'>
